@@ -3,9 +3,7 @@ name: Build Android APK
 on:
   workflow_dispatch:
   push:
-    branches: ['feature/**']
-  pull_request:
-    branches: [main]
+    branches: ['feature/maydan-foundation']
 
 jobs:
   build-apk:
@@ -16,6 +14,7 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      - uses: android-actions/setup-android@v3
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
@@ -25,6 +24,6 @@ jobs:
       - run: flutter build apk --release
       - uses: actions/upload-artifact@v4
         with:
-          name: maydan-release-apk
+          name: MAYDAN-Android-APK
           path: build/app/outputs/flutter-apk/app-release.apk
           if-no-files-found: error
